@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
-    "@layer0/express": "^4.13.9",
+    "@layer0/express": "^4.13.12",
     "@shopify/hydrogen": "^0.7.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
