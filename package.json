@@ -22,7 +22,7 @@
   "devDependencies": {
     "@layer0/cli": "^4.13.9",
     "@layer0/core": "^4.13.9",
-    "@layer0/devtools": "^4.13.9",
+    "@layer0/devtools": "^4.15.1",
     "@layer0/prefetch": "^4.13.9",
     "@shopify/eslint-plugin": "^40.4.0",
     "@shopify/prettier-config": "^1.1.2",
