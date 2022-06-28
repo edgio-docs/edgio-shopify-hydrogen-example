@@ -1,5 +1,3 @@
-// This file was added by layer0 init.
-// You should commit this file to source control.
 const ONE_HOUR = 60 * 60;
 const ONE_DAY = 24 * ONE_HOUR;
 
@@ -26,6 +24,30 @@ module.exports = new Router()
       browser: false,
     });
   })
+  .match('/collections', ({cache}) => {
+    cache({
+      edge: {
+        maxAgeSeconds: ONE_DAY,
+      },
+      browser: false,
+    });
+  })
+  .match('/products', ({cache}) => {
+    cache({
+      edge: {
+        maxAgeSeconds: ONE_DAY,
+      },
+      browser: false,
+    });
+  })
+  .match('/journal', ({cache}) => {
+    cache({
+      edge: {
+        maxAgeSeconds: ONE_DAY,
+      },
+      browser: false,
+    });
+  })
   .match('/collections/:path*', ({cache}) => {
     cache({
       edge: {
@@ -35,6 +57,18 @@ module.exports = new Router()
     });
   })
   .match('/products/:path*', ({cache}) => {
+    cache({
+      edge: {
+        maxAgeSeconds: ONE_DAY,
+        forcePrivateCaching: true,
+      },
+      browser: {
+        maxAgeSeconds: 0,
+        serviceWorkerSeconds: ONE_DAY,
+      },
+    });
+  })
+  .match('/journal/:path*', ({cache}) => {
     cache({
       edge: {
         maxAgeSeconds: ONE_DAY,

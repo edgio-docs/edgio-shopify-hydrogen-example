@@ -1,31 +1,46 @@
-import {ShopifyServerProvider, DefaultRoutes} from '@shopify/hydrogen';
-import {Switch} from 'react-router-dom';
 import {Suspense} from 'react';
+import renderHydrogen from '@shopify/hydrogen/entry-server';
+import {
+  FileRoutes,
+  PerformanceMetrics,
+  PerformanceMetricsDebug,
+  Route,
+  Router,
+  ShopifyAnalytics,
+  ShopifyProvider,
+  CartProvider,
+} from '@shopify/hydrogen';
 
-import shopifyConfig from '../shopify.config';
+import {HeaderFallback} from '~/components';
+import {DefaultSeo, NotFound} from '~/components/index.server';
 
-import DefaultSeo from './components/DefaultSeo.server';
-import NotFound from './components/NotFound.server';
-import CartProvider from './components/CartProvider.client';
-import LoadingFallback from './components/LoadingFallback';
+function App({request}) {
+  const pathname = new URL(request.normalizedUrl).pathname;
+  const localeMatch = /^\/([a-z]{2})(\/|$)/i.exec(pathname);
+  const countryCode = localeMatch ? localeMatch[1] : undefined;
 
-export default function App({...serverState}) {
-  const pages = import.meta.globEager('./pages/**/*.server.[jt]sx');
+  const isHome = pathname === `/${countryCode ? countryCode + '/' : ''}`;
 
   return (
-    <Suspense fallback={<LoadingFallback />}>
-      <ShopifyServerProvider shopifyConfig={shopifyConfig} {...serverState}>
-        <CartProvider>
-          <DefaultSeo />
-          <Switch>
-            <DefaultRoutes
-              pages={pages}
-              serverState={serverState}
-              fallback={<NotFound />}
+    <Suspense fallback={<HeaderFallback isHome={isHome} />}>
+      <ShopifyProvider countryCode={countryCode}>
+        <CartProvider countryCode={countryCode}>
+          <Suspense>
+            <DefaultSeo />
+          </Suspense>
+          <Router>
+            <FileRoutes
+              basePath={countryCode ? `/${countryCode}/` : undefined}
             />
-          </Switch>
+            <Route path="*" page={<NotFound />} />
+          </Router>
         </CartProvider>
-      </ShopifyServerProvider>
+        <PerformanceMetrics />
+        {import.meta.env.DEV && <PerformanceMetricsDebug />}
+        <ShopifyAnalytics />
+      </ShopifyProvider>
     </Suspense>
   );
 }
+
+export default renderHydrogen(App);
