@@ -45,9 +45,11 @@
     "@vercel/nft": "^0.20.0",
     "clsx": "^1.1.1",
     "graphql-tag": "^2.12.6",
+    "inquirer": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
+    "readline-sync": "^1.4.10",
     "title": "^3.4.4",
     "typographic-base": "^1.0.4"
   },

@@ -1,5 +1,6 @@
 const {join} = require('path');
 const {exit} = require('process');
+const inquirer = require('inquirer');
 const {nodeFileTrace} = require('@vercel/nft');
 const {DeploymentBuilder} = require('@layer0/core/deploy');
 
@@ -10,6 +11,26 @@ module.exports = async function build(options) {
   try {
     builder.clearPreviousBuildOutput();
     let command = 'yarn build --target node';
+    let selectedAnswer = 'yarn';
+    if (!process.env.LAYER0_GITHUB_TOKEN) {
+      await inquirer
+        .prompt([
+          {
+            type: 'list',
+            name: 'Build your app with',
+            choices: ['npm', 'yarn'],
+          },
+        ])
+        .then((answers) => {
+          selectedAnswer = answers['Build your app with'];
+        })
+        .catch((error) => {
+          console.log(e);
+        });
+      if (selectedAnswer.includes('npm')) {
+        command = 'npm run build -- --target node';
+      }
+    }
     await builder.exec(command);
     builder.addJSAsset(join(appDir, 'dist'));
     builder.addJSAsset(join(appDir, 'server.js'));
