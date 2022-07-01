@@ -24,7 +24,7 @@ module.exports = async function build(options) {
         .then((answers) => {
           selectedAnswer = answers['Build your app with'];
         })
-        .catch((error) => {
+        .catch((e) => {
           console.log(e);
         });
       if (selectedAnswer.includes('npm')) {
