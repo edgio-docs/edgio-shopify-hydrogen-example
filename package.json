@@ -17,7 +17,7 @@
     "layer0:prod": "layer0 run --production"
   },
   "devDependencies": {
-    "@layer0/cli": "^4.15.2",
+    "@layer0/cli": "^4.19.4",
     "@layer0/core": "^4.15.2",
     "@layer0/devtools": "^4.15.2",
     "@layer0/prefetch": "^4.15.2",
