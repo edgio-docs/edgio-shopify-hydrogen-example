@@ -1,8 +1,8 @@
 const {join} = require('path');
 const {exit} = require('process');
 const {nodeFileTrace} = require('@vercel/nft');
-const {DeploymentBuilder} = require('@layer0/core/deploy');
-const {isYarn} = require('@layer0/cli/utils/packageManager');
+const {DeploymentBuilder} = require('@edgio/core/deploy');
+const {isYarn} = require('@edgio/cli/utils/packageManager');
 
 const appDir = process.cwd();
 const builder = new DeploymentBuilder(appDir);

@@ -1,7 +1,7 @@
 const ONE_HOUR = 60 * 60;
 const ONE_DAY = 24 * ONE_HOUR;
 
-const {Router} = require('@layer0/core/router');
+const {Router} = require('@edgio/core/router');
 
 module.exports = new Router()
   .match('/assets/:path*', ({cache}) => {
